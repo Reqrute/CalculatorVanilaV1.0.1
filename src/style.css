@@ -46,11 +46,13 @@ body {
   width: 50px;
   height: 26px;
 }
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -62,6 +64,7 @@ body {
   right: 0;
   bottom: 0;
 }
+
 .slider:before {
   content: '';
   position: absolute;
@@ -73,15 +76,17 @@ body {
   border-radius: 50%;
   transition: 0.4s;
 }
-input:checked + .slider {
+
+input:checked+.slider {
   background-color: #66bb6a;
 }
-input:checked + .slider:before {
+
+input:checked+.slider:before {
   transform: translateX(24px);
 }
 
 .calculator {
-  width: 320px;
+  width: 700px;  
   background-color: var(--container-color);
   border-radius: 16px;
   overflow: hidden;
@@ -107,8 +112,15 @@ input:checked + .slider:before {
 
 .buttons {
   display: grid;
+  grid-template-columns: repeat(8, 1fr); 
+  gap: 10px;
+}
+
+.memory-buttons {
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -121,9 +133,11 @@ input:checked + .slider:before {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 .btn:hover {
   background-color: var(--btn-hover);
 }
+
 .btn:active {
   transform: scale(0.98);
 }
@@ -135,6 +149,7 @@ input:checked + .slider:before {
 .btn-operator {
   background-color: var(--operator-color);
 }
+
 .btn-operator:hover {
   background-color: var(--operator-hover);
 }
@@ -142,6 +157,7 @@ input:checked + .slider:before {
 .btn-clear {
   background-color: #ff3b30;
 }
+
 .btn-clear:hover {
   background-color: #ff6659;
 }
@@ -149,23 +165,7 @@ input:checked + .slider:before {
 .btn-equal {
   background-color: var(--accent);
 }
+
 .btn-equal:hover {
   background-color: #5de68a;
-}
-
-@media (max-width: 400px) {
-  .calculator {
-    width: 90vw;
-    padding: 12px;
-  }
-
-  .btn {
-    font-size: 1.2rem;
-    padding: 14px;
-  }
-
-  .display {
-    font-size: 2rem;
-    padding: 8px;
-  }
 }
