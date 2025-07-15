@@ -5,6 +5,7 @@ export function calculate(a, b, operator) {
   if (isNaN(a) || isNaN(b)) {
     return NaN;
   }
+
   switch (operator) {
     case 'add':
       return add(a, b);
@@ -23,6 +24,10 @@ export function calculate(a, b, operator) {
   }
 }
 
+function abs(x) {
+  return x < 0 ? -x : x;
+}
+
 export function add(a, b) {
   return a + b;
 }
@@ -37,131 +42,111 @@ export function multiply(a, b) {
 
 export function divide(a, b) {
   if (b === 0) {
-    return NaN;
+    return 'Error: Division by zero';
   }
   return a / b;
 }
 
 export function percent(numStr) {
   const num = parseFloat(numStr);
-  if (isNaN(num)) {
-    return 'NaN';
-  }
-  return (num / 100).toString();
+  return isNaN(num) ? 'Error: Invalid number' : (num / 100).toString();
 }
 
 export function square(num) {
+  if (isNaN(num)) return NaN;
   return num * num;
 }
 
 export function cube(num) {
+  if (isNaN(num)) return NaN;
   return num * num * num;
 }
 
 export function power(base, exponent) {
-  return base ** exponent;
+  if (isNaN(base) || isNaN(exponent)) {
+    return NaN;
+  }
+  if (typeof base !== 'number' || typeof exponent !== 'number') {
+    return NaN;
+  }
+
+  const result = base ** exponent;
+
+  if (!Number.isFinite(result)) {
+    return 'Error: Overflow';
+  }
+
+  return result;
 }
 
 export function tenPower(num) {
-  return 10 ** num;
+  if (isNaN(num)) return NaN;
+
+  const result = 10 ** num;
+  return Number.isFinite(result) ? result : 'Error: Overflow';
 }
 
 export function inverse(num) {
   if (num === 0) {
-    return NaN;
+    return 'Error: Division by zero';
   }
   return 1 / num;
 }
 
 export function sqrt(n) {
-  const isBig = typeof n === 'bigint';
+  if (typeof n !== 'number') return 'Error: Input must be a number';
+  if (n < 0) return 'Error: Negative input';
+  if (n === 0 || n === 1) return n;
 
-  if (!isBig) {
-    if (!Number.isInteger(n)) throw new Error('Only exact integers allowed');
-    n = BigInt(n);
-  }
+  let guess = n / 2;
+  const epsilon = 1e-15;
+  let prev;
+  do {
+    prev = guess;
+    guess = (guess + n / guess) / 2;
+  } while (abs(guess - prev) > epsilon);
 
-  if (n < 0n) throw new Error('Negative input');
-  if (n === 0n || n === 1n) return isBig ? n : Number(n);
-
-  let low = 0n;
-  let high = n;
-  let result = 0n;
-
-  while (low <= high) {
-    const mid = (low + high) >> 1n;
-    const midSq = mid * mid;
-
-    if (midSq === n) return isBig ? mid : Number(mid);
-    if (midSq < n) {
-      low = mid + 1n;
-      result = mid;
-    } else {
-      high = mid - 1n;
-    }
-  }
-
-  return isBig ? result : Number(result);
+  return guess;
 }
 
 export function cbrt(n) {
-  const isBig = typeof n === 'bigint';
+  if (typeof n !== 'number') return 'Error: Input must be a number';
 
-  if (!isBig) {
-    if (!Number.isInteger(n)) throw new Error('Only exact integers allowed');
-    n = BigInt(n);
-  }
+  const neg = n < 0;
+  if (neg) n = -n;
 
-  let neg = false;
-  if (n < 0n) {
-    neg = true;
-    n = -n;
-  }
+  if (n === 0 || n === 1) return neg ? -n : n;
 
-  let low = 0n;
-  let high = n;
-  let result = 0n;
+  let guess = n / 3;
+  const epsilon = 1e-15;
+  let prev;
+  do {
+    prev = guess;
+    const guessSquared = guess * guess;
+    guess = guess - (guess * guessSquared - n) / (3 * guessSquared);
+  } while (abs(guess - prev) > epsilon);
 
-  while (low <= high) {
-    const mid = (low + high) >> 1n;
-    const midCube = mid * mid * mid;
-
-    if (midCube === n) {
-      const exact = neg ? -mid : mid;
-      return isBig ? exact : Number(exact);
-    }
-
-    if (midCube < n) {
-      low = mid + 1n;
-      result = mid;
-    } else {
-      high = mid - 1n;
-    }
-  }
-
-  const final = neg ? -result : result;
-  return isBig ? final : Number(final);
+  return neg ? -guess : guess;
 }
 
 export function root(base, index) {
   if (index === 0) {
-    return NaN;
+    return 'Error: Zero root';
   }
   if (base < 0 && index % 2 === 0) {
-    return NaN;
+    return 'Error: Even root of negative number';
   }
-  return base ** (1 / index);
+  const result = base ** (1 / index);
+  return Number.isFinite(result) ? result : 'Error: Invalid root';
 }
 
 export function factorial(n) {
-  if (n < 0 || !Number.isInteger(n)) {
-    return NaN;
-  }
-  if (n === 0) {
-    return 1;
-  }
+  if (!Number.isInteger(n)) return 'Error: Not an integer';
+  if (n < 0) return 'Error: Negative factorial';
+  if (n > 170) return 'Error: Result too large';
+
   let result = 1;
-  for (let i = 1; i <= n; i++) {
+  for (let i = 2; i <= n; i++) {
     result *= i;
   }
   return result;

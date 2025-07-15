@@ -33,7 +33,7 @@ describe('Math Operations', () => {
   });
 
   test('divide by zero', () => {
-    expect(divide(5, 0)).toBeNaN();
+    expect(divide(5, 0)).toBe('Error: Division by zero');
   });
 
   test('percent', () => {
@@ -61,7 +61,7 @@ describe('Math Operations', () => {
   });
 
   test('inverse of zero', () => {
-    expect(inverse(0)).toBeNaN();
+    expect(inverse(0)).toBe('Error: Division by zero');
   });
 
   test('sqrt', () => {
@@ -85,10 +85,10 @@ describe('Math Operations', () => {
   });
 
   test('factorial of negative number', () => {
-    expect(factorial(-1)).toBeNaN();
+    expect(factorial(-1)).toBe('Error: Negative factorial');
   });
 
   test('factorial of non-integer', () => {
-    expect(factorial(2.5)).toBeNaN();
+    expect(factorial(2.5)).toBe('Error: Not an integer');
   });
 });
