@@ -13,6 +13,7 @@ import PercentCommand from './command/PercentCommand.js';
 import AdvancedMathCommand from './command/AdvancedMathCommand.js';
 import CommandInvoker from './core/CommandInvoker.js';
 import './theme.js';
+import './style.css';
 
 const invoker = new CommandInvoker();
 
