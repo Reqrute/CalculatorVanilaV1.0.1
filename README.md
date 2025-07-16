@@ -2,7 +2,7 @@
 
 ### 1. Task
 
-Задание доступно по ссылке: [Ссылка на документ с заданием](<Innowise Lab Internship* Level 0* Simple calculator.pdf>)
+Задание доступно по ссылке: [Ссылка на документ с заданием]<Innowise Lab Internship* Level 0* Custom calculator.pdf>
 
 ---
 
@@ -21,30 +21,97 @@ npm run build
 npm run start
 ```
 
-> ⚙️ Сборка производится с помощью Webpack. Результат находится в папке `dist/`.
+> Сборка производится с помощью Webpack. Результат находится в папке `dist/`.
 
 ---
 
 ### 3. Структура проекта
 
-```plaintext
-src/
-├── js/             # Основная бизнес-логика и работа с DOM
-│   ├── calculation.js  # Основная логика вычислений (BigInt, приоритеты)
-│   ├── dom.js          # Работа с DOM-элементами (рендер, дисплей, кнопки)
-│   ├── main.js         # Точка входа, связывает UI и бизнес-логику
-│   ├── math.js         # Вспомогательные математические функции
-│   ├── state.js        # Объект состояния приложения
-│   └── theme.js        # Переключение темы (тёмная/светлая)
-├── index.html      # Главная HTML-страница
-├── style.css       # Стили приложения
+```
+project/
+├── .husky/                      # Husky хуки
+|   ├── commit-msg
+│   └── pre-commit                      
+├── node_modules/                # Зависимости
+├── src/                         # Исходный код
+│   ├── command/                 # Паттерн Command
+│   │   ├── AdvancedMathCommand.js
+│   │   ├── ClearCommand.js
+│   │   ├── Command.js
+│   │   ├── EqualsCommand.js
+│   │   ├── InputDigitCommand.js
+│   │   ├── MemoryCommands.js
+│   │   ├── OperatorCommand.js
+│   │   ├── PercentCommand.js
+│   │   └── ToggleSignCommand.js
+│   │   
+│   │
+│   ├── core/                    # Расширения ядра
+|   |    └── CommandInvoker.js  
+│   ├── math/                    # Математические операции
+│   │   └── calculate.js
+│   ├── test/                    # Тесты (Jest)
+│   │   └── math.test.js
+│   ├── ui/                      # Работа с DOM и отображением
+│   │   └── display.js
+│   ├── index.html               # HTML-файл
+│   ├── main.js                  # Главный файл, связывающий UI и логику
+│   ├── state.js                 # Хранилище состояния
+│   ├── style.css                # Стили
+│   └── theme.js                 # Переключение темы (тёмная/светлая)
+│
+├── .babelrc                     # Babel-конфиг
+├── .gitignore                   # Игнорирование файлов для Git  
+├── .prettierignore              # Игнорирование файлов для Prettier
+├── .prettierrc                 # Настройки Prettier
+├── commitlint.config.js        # Настройки commitlint
+├── eslint.config.mjs           # Настройки ESLint
+├── package.json
+├── README.md                    # Документация проекта (этот файл)
+├── webpack.config.js           # Конфигурация Webpack
+└── Innowise Lab Internship_...pdf # PDF с заданием
 ```
 
 ---
 
 ### 4. Дополнительно
 
-- Линтинг: ESLint, Prettier (`.eslintrc`, `.prettierrc`)
-- Сборка: `webpack.config.js`
-- Поддерживается модульная структура ES6 (используются `import`/`export`)
-- Дополнительный функционал: поддержка светлой и тёмной темы
+- Реализация **Command Pattern** с поддержкой `undo`
+- Поддержка операций:
+     Сложение, вычитание, умножение, деление
+     Возведение в степень, корень, факториал и др.
+- Память (MC, MR, M+, M-)
+- Поддержка светлой и тёмной темы
+
+---
+
+### Тестирование
+
+Для запуска unit-тестов используется Jest:
+
+```bash
+npm run test
+```
+
+> Настроено окружение `jsdom`, преобразование через `babel-jest`.
+
+---
+
+### Качество кода
+
+Инструменты:
+
+- **ESLint** — анализ кода
+- **Prettier** — форматирование
+- **Husky + lint-staged** — pre-commit хуки
+- **Commitlint** — проверка conventional commits
+
+```bash
+# Проверка линтинга
+npm run lint
+
+# Форматирование файлов
+npm run format
+```
+
+---
