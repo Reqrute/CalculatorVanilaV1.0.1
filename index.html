@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Калькулятор</title>
+<script defer src="main.js"></script></head>
+
+<body>
+  <div class="theme-toggle">
+    <label class="switch">
+      <input type="checkbox" id="themeSwitcher" />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="memory-buttons">
+      <button class="btn" data-action="mc">MC</button>
+      <button class="btn" data-action="mr">MR</button>
+      <button class="btn" data-action="m+">M+</button>
+      <button class="btn" data-action="m-">M-</button>
+    </div>
+
+    <div class="buttons">
+      <button class="btn" data-action="square">x²</button>
+      <button class="btn" data-action="cube">x³</button>
+      <button class="btn" data-action="power">x^y</button>
+      <button class="btn" data-action="ten-power">10^x</button>
+      <button class="btn btn-clear" data-action="clear">AC</button>
+      <button class="btn btn-sign" data-action="toggle-sign">+/-</button>
+      <button class="btn btn-percent" data-action="percent">%</button>
+      <button class="btn btn-operator" data-action="divide">÷</button>
+      <button class="btn" data-action="inverse">1/x</button>
+      <button class="btn" data-action="sqrt">√x</button>
+
+      <button class="btn" data-action="cbrt">∛x</button>
+      <button class="btn" data-action="root">y√x</button>
+      <button class="btn" data-value="7">7</button>
+      <button class="btn" data-value="8">8</button>
+      <button class="btn" data-value="9">9</button>
+      <button class="btn btn-operator" data-action="multiply">×</button>
+      <button class="btn" data-action="factorial">x!</button>
+      <button class="btn" data-value="4" style="grid-column: 5;">4</button>
+      <button class="btn" data-value="5">5</button>
+      <button class="btn" data-value="6">6</button>
+      <button class="btn btn-operator" data-action="subtract">−</button>
+
+      <button class="btn" data-value="1" style="grid-column: 5;">1</button>
+      <button class="btn" data-value="2">2</button>
+      <button class="btn" data-value="3">3</button>
+      <button class="btn btn-operator" data-action="add">+</button>
+      
+      <button class="btn" data-value="0" style="grid-column: 5 /span 2;">0</button>
+      <button class="btn" data-value=".">.</button>
+      <button class="btn btn-equal" data-action="equals">=</button>
+
+    </div>
+  </div>
+</body>
+
+</html>
